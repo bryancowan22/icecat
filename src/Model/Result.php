@@ -79,6 +79,14 @@ class Result implements ResultInterface
     {
         return $this->getProductData()->Supplier->{"@attributes"}->Name;
     }
+	
+	/**
+     * Gets the title.
+     */
+    public function getTitle()
+    {
+        return $this->getProductData()->{"@attributes"}->Title;
+    }
 
     /**
      * Gets the long description.
