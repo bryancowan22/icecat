@@ -42,13 +42,15 @@ class Fetcher extends FetcherBase
      * IcecatFetcher constructor.
      * @param $username
      * @param $password
+     * @param $product_id
      * @param $ean
      * @param $language
      */
-    public function __construct($username, $password, $ean, $language)
+    public function __construct($username, $password, $language, $product_id, $ean = null)
     {
         $this->username = $username;
         $this->password = $password;
+        $this->product_id = $product_id;
         $this->ean = $ean;
         $this->language = $language;
     }
