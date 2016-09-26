@@ -12,6 +12,13 @@ use GuzzleHttp\Client;
 abstract class FetcherBase implements FetcherInterface
 {
     /**
+     * The icecat product_id number of the product.
+     *
+     * @var integer
+     */
+    protected $product_id;
+	
+	/**
      * The ean number of the product.
      *
      * @var integer
@@ -88,6 +95,14 @@ abstract class FetcherBase implements FetcherInterface
     /**
      * @inheritdoc.
      */
+    public function getProductId()
+    {
+        return $this->product_id;
+    }
+	
+	/**
+     * @inheritdoc.
+     */
     public function getEan()
     {
         return $this->ean;
@@ -123,25 +138,29 @@ abstract class FetcherBase implements FetcherInterface
         // Init the array to return.
         $checkurls = [];
 
-        // Get the EAN code.
+        // Get the icecat product_id.
+        $product_id = $this->getProductId();
+		
+		// Get the EAN code.
         $ean = $this->getEan();
-
+		
         // Prefix.
         $prefix = $this->getServerAddress() . '/xml_s3/xml_server3.cgi';
-        $suffix = ';lang=' . $this->getLanguage() . ';output=productxml;';
-
+        $suffix = ';lang=' . $this->getLanguage() . ';output=productxml;';		
+		
         // Structure the url. There might be more urls available.
-        if (!empty($ean)) {
+        if (!empty($product_id)) {
             $checkurls[] =  $prefix .
+                '?product_id=' . urlencode($product_id) .
+                $suffix;
+        }
+        if (!empty($ean)) {
+            $checkurls[] = $prefix .
+                $checkurls[] =  $prefix .
                 '?ean_upc=' . urlencode($ean) .
                 $suffix;
         }
-        if (!empty($this->getSku()) && !empty($this->getBrand())) {
-            $checkurls[] = $prefix .
-                '?prod_id=' . urlencode($this->getSku()) .
-                ';vendor=' . $this->getBrand() .
-                $suffix;
-        }
+
         $this->setUrls($checkurls);
     }
 
