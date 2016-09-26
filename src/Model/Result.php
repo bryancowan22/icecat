@@ -61,6 +61,16 @@ class Result implements ResultInterface
     }
 
     /**
+     * Gets the supplier id.
+     *
+     * @return string
+     */
+    public function getSupplierID()
+    {
+        return $this->getProductData()->Supplier->{"@attributes"}->Id;
+    }
+    
+    /**
      * Gets the supplier.
      *
      * @return string
