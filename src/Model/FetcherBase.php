@@ -240,7 +240,7 @@ abstract class FetcherBase implements FetcherInterface
     public function getBaseData()
     {
         return $this->result;
-    }
+    } 
 
     /**
      * The json string to set as data.
