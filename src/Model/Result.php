@@ -67,7 +67,7 @@ class Result implements ResultInterface
      */
     public function getSupplierID()
     {
-        return $this->getProductData()->Supplier->{"@attributes"}->Id;
+        return $this->getProductData()->Supplier->{"@attributes"}->ID;
     }
     
     /**
