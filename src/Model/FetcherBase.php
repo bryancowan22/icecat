@@ -206,7 +206,8 @@ abstract class FetcherBase implements FetcherInterface
             ]);
 
             if ($response->getStatusCode() == 200) {
-                $xml = simplexml_load_string($response->getBody()->getContents());
+                libxml_use_internal_errors(true);
+		$xml = simplexml_load_string($response->getBody()->getContents());
                 if (isset($xml->Product['ErrorMessage'])) {
                     $errorCode = $xml->Product['Code']->__toString();
                     $errorMessage = $xml->Product['ErrorMessage']->__toString();
