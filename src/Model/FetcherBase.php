@@ -144,6 +144,12 @@ abstract class FetcherBase implements FetcherInterface
 		// Get the EAN code.
         $ean = $this->getEan();
 		
+		// Get the icecat product_id.
+        $brand = $this->getBrand();
+		
+		// Get the EAN code.
+        $sku = $this->getSku();
+		
         // Prefix.
         $prefix = $this->getServerAddress() . '/xml_s3/xml_server3.cgi';
         $suffix = ';lang=' . $this->getLanguage() . ';output=productxml;';		
@@ -158,6 +164,13 @@ abstract class FetcherBase implements FetcherInterface
             $checkurls[] = $prefix .
                 $checkurls[] =  $prefix .
                 '?ean_upc=' . urlencode($ean) .
+                $suffix;
+        }
+		if (!empty($brand) && !empty($sku)) {
+            $checkurls[] = $prefix .
+                $checkurls[] =  $prefix .
+                '?prod_id=' . urlencode($sku) .
+                ';vendor=' . urlencode($brand) .
                 $suffix;
         }
 
@@ -206,8 +219,8 @@ abstract class FetcherBase implements FetcherInterface
             ]);
 
             if ($response->getStatusCode() == 200) {
-                libxml_use_internal_errors(true);
-		$xml = simplexml_load_string($response->getBody()->getContents());
+				libxml_use_internal_errors(true);
+			    $xml = simplexml_load_string($response->getBody()->getContents());
                 if (isset($xml->Product['ErrorMessage'])) {
                     $errorCode = $xml->Product['Code']->__toString();
                     $errorMessage = $xml->Product['ErrorMessage']->__toString();
