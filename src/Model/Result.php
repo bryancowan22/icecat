@@ -118,9 +118,9 @@ class Result implements ResultInterface
         return $this->getProductData()->Category->Name->{"@attributes"}->Value;
     }
 	
-    public function getCategoryID()
+	public function getCategoryID()
     {
-        return $this->getProductData()->Category->Name->{"@attributes"}->ID;
+        return $this->getProductData()->Category->{"@attributes"}->ID;
     }
 
     /**
