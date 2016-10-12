@@ -117,6 +117,11 @@ class Result implements ResultInterface
     {
         return $this->getProductData()->Category->Name->{"@attributes"}->Value;
     }
+	
+    public function getCategoryID()
+    {
+        return $this->getProductData()->Category->Name->{"@attributes"}->ID;
+    }
 
     /**
      * Gets an array of images.
