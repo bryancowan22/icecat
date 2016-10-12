@@ -46,12 +46,14 @@ class Fetcher extends FetcherBase
      * @param $ean
      * @param $language
      */
-    public function __construct($username, $password, $language, $product_id, $ean = null)
+    public function __construct($username, $password, $language, $product_id, $ean = null, $sku = null, $brand = null)
     {
         $this->username = $username;
         $this->password = $password;
         $this->product_id = $product_id;
         $this->ean = $ean;
+        $this->sku = $sku;
+        $this->brand = $brand;
         $this->language = $language;
     }
 
